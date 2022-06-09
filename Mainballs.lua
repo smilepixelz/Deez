@@ -215,6 +215,7 @@ local API = {} do
         local Animations = getgenv().FrameworkSettings.CustomM1.Animations
         local MaxCombo = getgenv().FrameworkSettings.CustomM1.MaxCombo
         local TimeTillReset = getgenv().FrameworkSettings.CustomM1.TimeTillComboReset
+        local ting = getgenv().FrameworkSettings.CustomM1
         local Player = game.Players.LocalPlayer
         local Character = Players.Character 
         local Mouse = Player:GetMouse()
@@ -234,7 +235,11 @@ local API = {} do
                 local Track = Character.Humanoid:LoadAnimation(AnimationObject) -- real!!! 
                 Track:Play()
                 wait(Track.Length/.5)
-                API:Damage(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector*170,10,"HeavyHitEffect",1,"Normal",true)
+                if Animations[Combo][3] == true then 
+                    API:Damage(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector*170,Animations[Combo][2],"HeavyHitEffect",1,"Knockback",true)
+                else
+                    API:Damage(game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector*170,Animations[Combo][2],"LightHitEffect",1,"Normal",true)
+                end
                 spawn(function()
                     wait(TimeTillReset)
                     if Combo == thiscombo then 
